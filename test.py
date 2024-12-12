@@ -24,7 +24,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 '''
-MC PMF for covariance of uniformly distributed integers seems to be ~ normal to the eyeball
+MC PMF for covariance of uniformly distributed integers seems to be roughly ~ normal to the eyeball
 '''
 
 # help(pd.DataFrame.cov)
