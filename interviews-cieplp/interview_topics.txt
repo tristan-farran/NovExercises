@@ -1,0 +1,69 @@
+Interview Topics: 
+
+1. Manipulating Data
+  - Be very comfortable with: pd.DataFrame operations:
+      - stack()
+      - unstack()
+      - apply(lambda x: x)
+      - apply(lambda row: row, axis=1)
+      - .rolling().std()
+      - .rolling().mean()
+      - .rolling().apply(...)
+      - .T
+      - .loc[]
+      - .rename()
+      - .swaplevel()
+      ...
+
+  - Be very comfortable with pd.Series with pd.MultiIndex:
+      - .stack()
+      - .unstack()
+      - .index.get_level_values("level_name")
+      - .xs("value", level="level_name")
+      - rename()
+      - to_frame()
+
+  - Cleaning and saving data:
+      - removing outliers (4ex. capping data at -3/+3 std. from mean etc.)
+      - changing index between date formats: datetime.date, datetime.datetime, pd.Timestamp
+      - adding timezone when applicable (UTC, Europe/London etc.)
+      - save to .pickle
+      - save to .json
+      - save to .csv
+
+2. Calculating PnL
+    - Example problem: if you buy 10mm of EUR at the EURUSD price of 1.05, and sell later at a price of 1.07, what is your PnL in USD? What is your % return on that trade?
+    - If you buy 10 lots of CLH25 oil future at the price of 70.2 USD, and later sell it for 68.4 USD, what is your profit/loss? Note, that CL contracts have a lot size of 1000.
+    - Assume last EOD price of CLH25 was 70.2 and we had 10 lots. Now assume we bought further 10 lots in the morning for 70.4 and the market closed at 70.8. What is my total PnL of that day? What is the "positions pnl", vs. the "order pnl"
+    - Futures Rolling: Assume you have 20 lots of CLH25 oil futures. Current market price is 70.2. Assume now that we are approaching end of February 2025 and we want to keep exposure the same. Next contract is CLM25 and it is currently trading at 70.4. What would be the cost of rolling the position? 
+
+3. Working with DataBases: 
+    - Learn how to write basic query using MongoDB syntax. Examples below: 
+      - client.db.collection.find_one({"strategy": "s1"})
+      - client.db.collection.find({"date": {"$gte": datetime.date(2024,12,1)}})
+      - client.db.collection.list_indexes()
+      - client.db.collection.insert_one(payload_dict)
+      - client.db.collection.insert_many(list_of_payloads)
+      
+    - Learn how to write basic SQL query. Example below: 
+      """
+      SELECT * FROM TABLE_NAME WHERE RIC='.SPX' TOP 10
+      """
+
+4. Working with Streamlit dashboards:
+    - how to set up a dashboard from you local python client on specifc port 
+    - how to display a dataframe, chart, warning, form etc.
+
+5. Quanty bits:
+    - Calculate daily Sharp Ratio (ignore risk free rate)
+    - Calculate Annual Sharp Ratio
+    - How variance and standard deviation scale with time
+    - How does the mean-variance optimization work (high level understanding)? Where does the correlation between strategies come into play?
+    - Additional useful metrics:   
+      - Calculate Sortino Ratio
+      - Find 3 longest drawdowns. How long was the worst one? What was total loss in USD terms? 
+    - Example of simple momentum & mean-reversion strategies. Simple signals using operations like:
+      - diff().rolling(window).mean()
+      - .pct_change().rolling(window).sum()
+      - .rolling(long_window).mean() > .rolling(short_window).mean()
+      ...
